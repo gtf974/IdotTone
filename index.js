@@ -17,14 +17,14 @@ setTimeout(() => {
 const KEYS = [
     "a", "z", "e", "r", "t", "y", "u",
     "q", "s", "d", "f", "g", "h", "j",
-    "w", "x", "c", "v", "b", "n", ","
+    "w", "x", "c", "v", "b", "n", ",", "?"
 ]
 
 //Notes corresponding to the keys you press
 const NOTES = [
     "C5", "D5", "E5", "F5", "G5", "A5", "B5",
     "C4", "D4", "E4", "F4", "G4", "A4", "B4",
-    "C3", "D3", "E3", "F3", "G3", "A3", "B3"
+    "C3", "D3", "E3", "F3", "G3", "A3", "B3", "B3"
 ]
 
 //Colors or the circles
@@ -56,7 +56,8 @@ const anim = (key) => {
     let element = document.getElementById(NOTES[KEYS.indexOf(key)]);
     const echo = document.createElement('div');
     echo.classList.add("echo");
-    echo.classList.add("border-"+COLORS[KEYS.indexOf(key) % 7]);
+    if(KEYS.indexOf(key) == 21) echo.classList.add("border-purple");
+    else echo.classList.add("border-"+COLORS[KEYS.indexOf(key) % 7]);
     const pos = getOffset(element);
     echo.style.top = pos.top+"px";
     echo.style.left = pos.left+"px";
@@ -111,9 +112,9 @@ const sampler = new Tone.Sampler({
 document.body.addEventListener("keydown", e => {
     if(!isReady) return;
     if(e.repeat) return;
-    if(!"azertyuqsdfghjwxcvbn,".includes(e.key)) return; 
-    sampler.triggerAttackRelease(NOTES[KEYS.indexOf(e.key)],"8n");
-    anim(e.key);
+    if(!"azertyuqsdfghjwxcvbn,?".includes(e.key.toLowerCase())) return; 
+    sampler.triggerAttackRelease(NOTES[KEYS.indexOf(e.key.toLowerCase())],"8n");
+    anim(e.key.toLowerCase());
 });
 
 //Event listening to clicks
