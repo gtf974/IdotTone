@@ -1,0 +1,157 @@
+/*All*/
+*{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/*Body*/
+body{
+    width: 100vw;
+    margin: 0 auto;
+}
+
+/*Top left Title*/
+h1{
+    position: absolute;
+    margin: 0 auto;
+    top: 10px;
+    left: 10px
+}
+
+/*Main App*/
+#app{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/*Keyboard Area*/
+#keyboard{
+    width: 80vw;
+}
+
+/*Rows of notes*/
+.row{
+    width: 100%;
+    height: 15vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+/*Colors*/
+.pink{
+    background-color: #ff2f8e;
+}
+.orange{
+    background-color: #ff9e4c;
+}
+.yellow{
+    background-color: #ffd600;
+}
+.green{
+    background-color: #66df48;
+}
+.blue{
+    background-color: #6a77dd;
+}
+.red{
+    background-color: #d12222;
+}
+.purple{
+    background-color: #9803ce;
+}
+
+/*Border colors*/
+.border-pink{
+    border: solid 1px #ff2f8e;
+}
+.border-orange{
+    border: solid 1px #ff9e4c;
+}
+.border-yellow{
+    border: solid 1px #ffd600;
+}
+.border-green{
+    border: solid 1px #66df48;
+}
+.border-blue{
+    border: solid 1px #6a77dd;
+}
+.border-red{
+    border: solid 1px #d12222;
+}
+.border-purple{
+    border: solid 1px #9803ce;
+}
+
+/*Note circle*/
+.note{
+    margin: 5px 15px 5px 15px;
+    width: 10vh;
+    height: 10vh;
+    border-radius: 1000px;
+    font-size: 30px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.1s all;
+    z-index: 2;
+}
+
+/*Echos spawning when a note is played*/
+.echo{
+    position: absolute;
+    width: 10vh;
+    height: 10vh;
+    border-radius: 1000px;
+    animation: 2s echo;
+    background-color: white;
+}
+
+/*Footer*/
+#footer{
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    bottom: 10px;
+    z-index: 1;
+}
+
+/*LOADING*/
+#loading-box{
+    z-index: 999;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    background-color: white;
+    transition: all 1s;
+}
+
+#loading-title{
+    color:black;
+    font-size: 80px;
+    opacity: 0;
+}
+
+.loading-title-blink{
+    animation: 2s blink infinite;
+}
+
+/*Animations*/
+@keyframes echo {
+    from {opacity: 1;}
+    to {opacity: 0; transform: scale(350%);}
+}
+
+@keyframes blink {
+    0% {opacity: 0.1; transform: none;}
+    50% {opacity: 1; transform: scale(120%);}
+    100% {opacity: 0.1; transform: none;}
+}
