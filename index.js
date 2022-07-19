@@ -11,7 +11,7 @@ setTimeout(() => {
     setTimeout(() => {
         loading.remove();
     }, 1000);
-}, 8000);
+}, 3000);
 
 //Keys you press
 const KEYS = [
