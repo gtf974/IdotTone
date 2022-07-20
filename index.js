@@ -4,6 +4,7 @@ let recordNotes = [];
 let recordTime = [];
 let isRecording = false;
 let isPlaying = false;
+let now = null;
 
 //Keys you press
 const KEYS = [
@@ -81,22 +82,6 @@ const anim = (key) => {
     }, 2000);
 }
 
-/*
-Method:
-args: None
-return : None
-def : Plays the intro song
-*/
-const loadingSong = () => {
-    const songNotes = [C3, E3, G3, C4, E4, G4, C5];
-    let index = 0;
-    const loop = setInterval(() => {
-        songNotes[index].click();
-        index++;
-    },200);
-    setTimeout(() => {clearInterval(loop)},1450);
-}
-
 /*Delay*/
 Tone.context.lookAhead = 0;
 
@@ -153,7 +138,28 @@ const playRecordedSong = () => {
     setTimeout(() => {
         isPlaying = false;
         error.textContent = "";
-    }, recordTime.reduce((partialSum, a) => partialSum + a, 0));
+    }, recordTime[recordNotes.length-1]);
+}
+
+/*
+Method:
+args: None
+return : None
+def : Plays the intro song
+*/
+const loadingSong = () => {
+    if(recorded.length != 0){
+        parseUrl();
+        playRecordedSong();
+        return;
+    }
+    const songNotes = [C3, E3, G3, C4, E4, G4, C5];
+    let index = 0;
+    const loop = setInterval(() => {
+        songNotes[index].click();
+        index++;
+    },200);
+    setTimeout(() => {clearInterval(loop)},1450);
 }
 
 /*
@@ -164,9 +170,10 @@ def : Parse the url
 */
 const parseUrl = () => {
     if(recorded.length == 0) return;
-    const split = recorded.split("%20");
-    console.log(split);
-    for (let index = 0; index < split.length-1; index++) {
+    const split = recorded.split("@");
+    recordNotes = [];
+    recordTime = [];
+    for (let index = 0; index < split.length; index++) {
         if(index > 0){
             if(!isInteger(split[index])){
                 recordNotes.push(split[index]);
@@ -174,12 +181,14 @@ const parseUrl = () => {
             }
         }
     }
-    recordTime[0] = 0;
-    console.log("RESULT:");
-    console.log(recordNotes);
-    console.log(recordTime);
 }
 
+/*
+Method:
+args: None
+return : None
+def : Loads everything
+*/
 const loadPage = () => {
     const loading = document.getElementById("loading-box");
     const loadingTitle = document.getElementById("loading-title");
@@ -195,10 +204,21 @@ const loadPage = () => {
     }, 3000);
 }
 
+/*
+Method:
+args: None
+return : None
+def : Controls the record LED blinking
+*/
+const animRecord = (bool) => {
+    if(bool) dot.classList.add("led-blink");
+    else dot.classList.remove("led-blink");
+};
+
+
 /*Main*/
-getUrlParams();
-parseUrl();
 loadPage();
+getUrlParams();
 
 
 //Event listening to keypressing
@@ -207,6 +227,11 @@ document.body.addEventListener("keydown", e => {
     if(e.repeat) return;
     if(!"azertyuqsdfghjwxcvbn,?".includes(e.key.toLowerCase())) return; 
     sampler.triggerAttackRelease(NOTES[KEYS.indexOf(e.key.toLowerCase())], "8n");
+    if(isRecording){
+        if(recorded.length == 0) recorded +=  (Date.now() - now).toString();
+        else recorded += "@" + (Date.now() - now).toString();
+        recorded += "@" + NOTES[KEYS.indexOf(e.key.toLowerCase())];
+    }
     anim(e.key.toLowerCase());
 });
 
@@ -215,23 +240,79 @@ document.querySelectorAll(".note").forEach(el => {
     el.addEventListener("click", (e) => {
         if(!isReady) return;
         sampler.triggerAttackRelease(el.dataset.note, "8n");
+        if(isRecording){
+            if(recorded.length == 0) recorded +=  (Date.now() - now).toString();
+            else recorded += "@" + (Date.now() - now).toString();
+            recorded += "@" + el.dataset.note;
+        }
         anim(KEYS[NOTES.indexOf(el.dataset.note)]);
     });
 });
 
-//Event listening to Record click
+//Event listening to Play click
 play.addEventListener("click", () => {
     if(isRecording){
         error.textContent = "It's recording...";
+        setTimeout(() => {
+            if(error.textContent == "It's recording...") error.textContent = "";
+        }, 2000)
         return;
     }
     if(recorded == ""){
         error.textContent = "Nothing to play...";
+        setTimeout(() => {
+            if(error.textContent == "Nothing to play...") error.textContent = "";
+        }, 2000)
         return;
     }
     if(isPlaying){
         error.textContent = "It's currently playing...";
+        setTimeout(() => {
+            if(error.textContent == "It's currently playing...") error.textContent = "";
+        }, 2000)
         return;
     }
+    parseUrl();
     playRecordedSong();
 })
+
+//Event listening to Record click
+record.addEventListener("click", () => {
+    if(isRecording){
+        isRecording = false;
+        recordText.textContent = "Record"
+        animRecord(false);
+        return;
+    }
+    if(isPlaying){
+        error.textContent = "Wait for the music to end before recording..";
+        return;
+    }
+    recorded = "";
+    now = Date.now();
+    recordText.textContent = "Stop"
+    isRecording = true;
+    animRecord(true);
+    setTimeout(() => {
+        if(isRecording){
+            isRecording = false;
+            recordText.textContent = "Record";
+            animRecord(false);
+        }
+    }, 10000);
+    
+});
+
+//Event listening to Copy click
+copy.addEventListener("click", () => {
+    if(isRecording) {
+        isRecording = false;
+        recordText.textContent = "Record";
+        animRecord(false);
+   }
+    navigator.clipboard.writeText("https://idottone.netlify.app/?r="+recorded);
+    error.textContent = "Copied!";
+    setTimeout(() => {
+        if(error.textContent == "Copied!") error.textContent = "";
+    }, 2000)
+});

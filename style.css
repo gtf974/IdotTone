@@ -190,6 +190,10 @@ h1{
     cursor: pointer;
 }
 
+.led-blink{
+    animation: ledBlink 2s infinite;
+}
+
 #error{
     margin-top: 10px;
 }
@@ -204,4 +208,10 @@ h1{
     0% {opacity: 0.1; transform: none;}
     50% {opacity: 1; transform: scale(120%);}
     100% {opacity: 0.1; transform: none;}
+}
+
+@keyframes ledBlink {
+    0% {background-color: rgba(255, 75, 75, 0.2);}
+    50% {background-color: rgba(255, 75, 75, 1);}
+    100% {background-color: rgba(255, 75, 75, 0.2);}
 }
