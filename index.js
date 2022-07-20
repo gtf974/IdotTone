@@ -60,6 +60,22 @@ const anim = (key) => {
     }, 2000);
 }
 
+/*
+Method:
+args: None
+return : None
+def : Plays the into song
+*/
+const loadingSong = () => {
+    const songNotes = [C3, E3, G3, C4, E4, G4, C5];
+    let index = 0;
+    const loop = setInterval(() => {
+        songNotes[index].click();
+        index++;
+    },200);
+    setTimeout(() => {clearInterval(loop)},1450);
+}
+
 /*Delay*/
 Tone.context.lookAhead = 0;
 
@@ -104,18 +120,10 @@ const loading = document.getElementById("loading-box");
 const loadingTitle = document.getElementById("loading-title");
 loadingTitle.classList.add("loading-title-blink");
 setTimeout(() => {
-    sampler.triggerAttackRelease("C3", "8n",nowLoading);
-    sampler.triggerAttackRelease("E3", "8n",nowLoading+0.4);
-    sampler.triggerAttackRelease("G3", "8n",nowLoading+0.8);
-    sampler.triggerAttackRelease("C4", "8n",nowLoading+1.2);
-    sampler.triggerAttackRelease("E4", "8n",nowLoading+1.6);
-    sampler.triggerAttackRelease("G4", "8n",nowLoading+2);
-    sampler.triggerAttackRelease("C5", "8n",nowLoading+2.4);
-}, 1500);
-setTimeout(() => {
     isReady = true;
     loading.style.opacity = 0;
     loadingTitle.classList.remove("loading-title-blink");
+    loadingSong();
     setTimeout(() => {
         loading.remove();
     }, 1000);
