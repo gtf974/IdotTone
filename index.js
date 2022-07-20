@@ -95,7 +95,7 @@ const sampler = new Tone.Sampler({
     },
     release: 1,
     baseUrl: "samples/harp/",
-    volume: -20,
+    volume: -15,
 }).toDestination().connect(reverb);
 
 /*Loading the page*/
@@ -104,13 +104,13 @@ const loading = document.getElementById("loading-box");
 const loadingTitle = document.getElementById("loading-title");
 loadingTitle.classList.add("loading-title-blink");
 setTimeout(() => {
-    sampler.triggerAttackRelease("C3",nowLoading);
-    sampler.triggerAttackRelease("E3",nowLoading+0.4);
-    sampler.triggerAttackRelease("G3",nowLoading+0.8);
-    sampler.triggerAttackRelease("C4",nowLoading+1.2);
-    sampler.triggerAttackRelease("E4",nowLoading+1.6);
-    sampler.triggerAttackRelease("G4",nowLoading+2);
-    sampler.triggerAttackRelease("C5",nowLoading+2.4);
+    sampler.triggerAttackRelease("C3", "8n",nowLoading);
+    sampler.triggerAttackRelease("E3", "8n",nowLoading+0.4);
+    sampler.triggerAttackRelease("G3", "8n",nowLoading+0.8);
+    sampler.triggerAttackRelease("C4", "8n",nowLoading+1.2);
+    sampler.triggerAttackRelease("E4", "8n",nowLoading+1.6);
+    sampler.triggerAttackRelease("G4", "8n",nowLoading+2);
+    sampler.triggerAttackRelease("C5", "8n",nowLoading+2.4);
 }, 1500);
 setTimeout(() => {
     isReady = true;
@@ -126,7 +126,7 @@ document.body.addEventListener("keydown", e => {
     if(!isReady) return;
     if(e.repeat) return;
     if(!"azertyuqsdfghjwxcvbn,?".includes(e.key.toLowerCase())) return; 
-    sampler.triggerAttackRelease(NOTES[KEYS.indexOf(e.key.toLowerCase())],Tone.now());
+    sampler.triggerAttackRelease(NOTES[KEYS.indexOf(e.key.toLowerCase())], "8n");
     anim(e.key.toLowerCase());
 });
 
@@ -134,7 +134,7 @@ document.body.addEventListener("keydown", e => {
 document.querySelectorAll(".note").forEach(el => {
     el.addEventListener("click", (e) => {
         if(!isReady) return;
-        sampler.triggerAttackRelease(el.dataset.note,Tone.now());
+        sampler.triggerAttackRelease(el.dataset.note, "8n");
         anim(KEYS[NOTES.indexOf(el.dataset.note)]);
     });
 });
