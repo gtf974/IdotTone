@@ -63,8 +63,8 @@ const anim = (key) => {
 /*Delay*/
 Tone.context.lookAhead = 0;
 
-//Reverb module
-const reverb = new Tone.Reverb(10).toDestination();
+// //Reverb module
+// const reverb = new Tone.Reverb(10).toDestination();
 
 //Sampling the Harp samples, turning down the volume and connecting the reverb to the output
 const sampler = new Tone.Sampler({
