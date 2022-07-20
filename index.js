@@ -1,4 +1,9 @@
 let isReady = false;
+let recorded = "";
+let recordNotes = [];
+let recordTime = [];
+let isRecording = false;
+let isPlaying = false;
 
 //Keys you press
 const KEYS = [
@@ -18,6 +23,22 @@ const NOTES = [
 const COLORS = [
     "red" , "pink", "orange", "yellow", "green", "blue", "purple"
 ]
+
+//Test if it's an integer
+const isInteger = (value) => {
+    return /^\d+$/.test(value);
+  }
+
+/*
+Method:
+args : None
+return : None
+*/
+let getUrlParams = () => {
+    let url = new URL(window.location.href);
+    let param = url.searchParams.get("r");
+    if(param) recorded = param;
+};
 
 /*
 Method:
@@ -64,7 +85,7 @@ const anim = (key) => {
 Method:
 args: None
 return : None
-def : Plays the into song
+def : Plays the intro song
 */
 const loadingSong = () => {
     const songNotes = [C3, E3, G3, C4, E4, G4, C5];
@@ -114,20 +135,71 @@ const sampler = new Tone.Sampler({
     volume: -15,
 }).toDestination().connect(reverb);
 
-/*Loading the page*/
-const nowLoading = Tone.now()
-const loading = document.getElementById("loading-box");
-const loadingTitle = document.getElementById("loading-title");
-loadingTitle.classList.add("loading-title-blink");
-setTimeout(() => {
-    isReady = true;
-    loading.style.opacity = 0;
-    loadingTitle.classList.remove("loading-title-blink");
-    loadingSong();
+/*
+Method:
+args: None
+return : None
+def : Plays the loading song
+*/
+const playRecordedSong = () => {
+    if(recordNotes.length == 0) return
+    const now = Date.now();
+    isPlaying = true;
+    for (let index = 0; index < recordNotes.length; index++) {
+        setTimeout(() => {
+            document.getElementById(recordNotes[index]).click();
+        },(now+recordTime[index]) - now);
+    }
     setTimeout(() => {
+        isPlaying = false;
+        error.textContent = "";
+    }, recordTime.reduce((partialSum, a) => partialSum + a, 0));
+}
+
+/*
+Method:
+args: None
+return : None
+def : Parse the url
+*/
+const parseUrl = () => {
+    if(recorded.length == 0) return;
+    const split = recorded.split("%20");
+    console.log(split);
+    for (let index = 0; index < split.length-1; index++) {
+        if(index > 0){
+            if(!isInteger(split[index])){
+                recordNotes.push(split[index]);
+                recordTime.push(Number.parseInt(split[index-1]));
+            }
+        }
+    }
+    recordTime[0] = 0;
+    console.log("RESULT:");
+    console.log(recordNotes);
+    console.log(recordTime);
+}
+
+const loadPage = () => {
+    const loading = document.getElementById("loading-box");
+    const loadingTitle = document.getElementById("loading-title");
+    loadingTitle.classList.add("loading-title-blink");
+    setTimeout(() => {
+        isReady = true;
+        loading.style.opacity = 0;
+        loadingTitle.classList.remove("loading-title-blink");
+        loadingSong();
+        setTimeout(() => {
         loading.remove();
-    }, 1000);
-}, 3000);
+        }, 1000);
+    }, 3000);
+}
+
+/*Main*/
+getUrlParams();
+parseUrl();
+loadPage();
+
 
 //Event listening to keypressing
 document.body.addEventListener("keydown", e => {
@@ -146,3 +218,20 @@ document.querySelectorAll(".note").forEach(el => {
         anim(KEYS[NOTES.indexOf(el.dataset.note)]);
     });
 });
+
+//Event listening to Record click
+play.addEventListener("click", () => {
+    if(isRecording){
+        error.textContent = "It's recording...";
+        return;
+    }
+    if(recorded == ""){
+        error.textContent = "Nothing to play...";
+        return;
+    }
+    if(isPlaying){
+        error.textContent = "It's currently playing...";
+        return;
+    }
+    playRecordedSong();
+})
