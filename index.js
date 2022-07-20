@@ -60,6 +60,9 @@ const anim = (key) => {
     }, 2000);
 }
 
+/*Delay*/
+Tone.context.lookAhead = 0;
+
 //Reverb module
 const reverb = new Tone.Reverb(10).toDestination();
 
