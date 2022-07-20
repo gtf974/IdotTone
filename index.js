@@ -100,13 +100,15 @@ const nowLoading = Tone.now()
 const loading = document.getElementById("loading-box");
 const loadingTitle = document.getElementById("loading-title");
 loadingTitle.classList.add("loading-title-blink");
-sampler.triggerAttackRelease("C3",nowLoading);
-sampler.triggerAttackRelease("D3",nowLoading+0.2);
-sampler.triggerAttackRelease("E3",nowLoading+0.4);
-sampler.triggerAttackRelease("C4",nowLoading+0.6);
-sampler.triggerAttackRelease("D4",nowLoading+0.8);
-sampler.triggerAttackRelease("E4",nowLoading+1);
-sampler.triggerAttackRelease("C5",nowLoading+1.2);
+setTimeout(() => {
+    sampler.triggerAttackRelease("C3",nowLoading);
+    sampler.triggerAttackRelease("D3",nowLoading+0.2);
+    sampler.triggerAttackRelease("E3",nowLoading+0.4);
+    sampler.triggerAttackRelease("C4",nowLoading+0.6);
+    sampler.triggerAttackRelease("D4",nowLoading+0.8);
+    sampler.triggerAttackRelease("E4",nowLoading+1);
+    sampler.triggerAttackRelease("C5",nowLoading+1.2);
+}, 1500);
 setTimeout(() => {
     isReady = true;
     loading.style.opacity = 0;
