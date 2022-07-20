@@ -1,18 +1,5 @@
 let isReady = false;
 
-/*Loading the page*/
-const loading = document.getElementById("loading-box");
-const loadingTitle = document.getElementById("loading-title");
-loadingTitle.classList.add("loading-title-blink");
-setTimeout(() => {
-    isReady = true;
-    loading.style.opacity = 0;
-    loadingTitle.classList.remove("loading-title-blink");
-    setTimeout(() => {
-        loading.remove();
-    }, 1000);
-}, 3000);
-
 //Keys you press
 const KEYS = [
     "a", "z", "e", "r", "t", "y", "u",
@@ -108,12 +95,33 @@ const sampler = new Tone.Sampler({
     volume: -12,
 }).toDestination().connect(reverb);
 
+/*Loading the page*/
+const nowLoading = Tone.now()
+const loading = document.getElementById("loading-box");
+const loadingTitle = document.getElementById("loading-title");
+loadingTitle.classList.add("loading-title-blink");
+sampler.triggerAttackRelease("C3",nowLoading);
+sampler.triggerAttackRelease("D3",nowLoading+0.2);
+sampler.triggerAttackRelease("E3",nowLoading+0.4);
+sampler.triggerAttackRelease("C4",nowLoading+0.6);
+sampler.triggerAttackRelease("D4",nowLoading+0.8);
+sampler.triggerAttackRelease("E4",nowLoading+1);
+sampler.triggerAttackRelease("C5",nowLoading+1.2);
+setTimeout(() => {
+    isReady = true;
+    loading.style.opacity = 0;
+    loadingTitle.classList.remove("loading-title-blink");
+    setTimeout(() => {
+        loading.remove();
+    }, 1000);
+}, 3000);
+
 //Event listening to keypressing
 document.body.addEventListener("keydown", e => {
     if(!isReady) return;
     if(e.repeat) return;
     if(!"azertyuqsdfghjwxcvbn,?".includes(e.key.toLowerCase())) return; 
-    sampler.triggerAttackRelease(NOTES[KEYS.indexOf(e.key.toLowerCase())],"8n");
+    sampler.triggerAttackRelease(NOTES[KEYS.indexOf(e.key.toLowerCase())],Tone.now());
     anim(e.key.toLowerCase());
 });
 
@@ -121,7 +129,7 @@ document.body.addEventListener("keydown", e => {
 document.querySelectorAll(".note").forEach(el => {
     el.addEventListener("click", (e) => {
         if(!isReady) return;
-        sampler.triggerAttackRelease(el.dataset.note,"8n");
+        sampler.triggerAttackRelease(el.dataset.note,Tone.now());
         anim(KEYS[NOTES.indexOf(el.dataset.note)]);
     });
 });
