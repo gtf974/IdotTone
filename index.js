@@ -63,8 +63,8 @@ const anim = (key) => {
 /*Delay*/
 Tone.context.lookAhead = 0;
 
-// //Reverb module
-// const reverb = new Tone.Reverb(10).toDestination();
+// Reverb module
+const reverb = new Tone.Reverb(5).toDestination();
 
 //Sampling the Harp samples, turning down the volume and connecting the reverb to the output
 const sampler = new Tone.Sampler({
@@ -95,8 +95,8 @@ const sampler = new Tone.Sampler({
     },
     release: 1,
     baseUrl: "samples/harp/",
-    volume: -12,
-}).toDestination();
+    volume: -20,
+}).toDestination().connect(reverb);
 
 /*Loading the page*/
 const nowLoading = Tone.now()
@@ -105,12 +105,12 @@ const loadingTitle = document.getElementById("loading-title");
 loadingTitle.classList.add("loading-title-blink");
 setTimeout(() => {
     sampler.triggerAttackRelease("C3",nowLoading);
-    sampler.triggerAttackRelease("E3",nowLoading+0.2);
-    sampler.triggerAttackRelease("G3",nowLoading+0.4);
-    sampler.triggerAttackRelease("C4",nowLoading+0.6);
-    sampler.triggerAttackRelease("E4",nowLoading+0.8);
-    sampler.triggerAttackRelease("G4",nowLoading+1);
-    sampler.triggerAttackRelease("C5",nowLoading+1.2);
+    sampler.triggerAttackRelease("E3",nowLoading+0.4);
+    sampler.triggerAttackRelease("G3",nowLoading+0.8);
+    sampler.triggerAttackRelease("C4",nowLoading+1.2);
+    sampler.triggerAttackRelease("E4",nowLoading+1.6);
+    sampler.triggerAttackRelease("G4",nowLoading+2);
+    sampler.triggerAttackRelease("C5",nowLoading+2.4);
 }, 1500);
 setTimeout(() => {
     isReady = true;
