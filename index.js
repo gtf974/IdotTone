@@ -96,7 +96,7 @@ const sampler = new Tone.Sampler({
     release: 1,
     baseUrl: "samples/harp/",
     volume: -12,
-}).toDestination().connect(reverb);
+}).toDestination();
 
 /*Loading the page*/
 const nowLoading = Tone.now()
