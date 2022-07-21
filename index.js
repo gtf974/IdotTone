@@ -7,7 +7,7 @@ let isPlaying = false;
 let now = null;
 let samplers = {};
 let instrument = "lyre";
-document.body.focus();
+document.body.click();
 
 //Keys you press
 const KEYS = [
