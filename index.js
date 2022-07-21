@@ -4,10 +4,10 @@ let recordNotes = [];
 let recordTime = [];
 let isRecording = false;
 let isPlaying = false;
+let isFirstLoad = true;
 let now = null;
 let samplers = {};
 let instrument = "lyre";
-document.body.click();
 
 //Keys you press
 const KEYS = [
@@ -232,7 +232,6 @@ const loadPage = () => {
         isReady = true;
         loading.style.opacity = 0;
         loadingTitle.classList.remove("loading-title-blink");
-        loadingSong();
         setTimeout(() => {
         loading.remove();
         }, 1000);
@@ -380,10 +379,14 @@ helpButton.addEventListener("click", () => {
     }
 });
 
-//Event listening to Help click
+//Event listening to background help click click
 back.addEventListener("click", () => {
         help.style.opacity = 0;
         setTimeout(() => {
             help.style.display = "none";
         }, 500);
+        if(isFirstLoad){
+            isFirstLoad = false;
+            loadingSong();
+        }
 });
