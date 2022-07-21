@@ -5,6 +5,8 @@ let recordTime = [];
 let isRecording = false;
 let isPlaying = false;
 let now = null;
+let samplers = {};
+let instrument = "lyre";
 
 //Keys you press
 const KEYS = [
@@ -120,6 +122,38 @@ const sampler = new Tone.Sampler({
     volume: -15,
 }).toDestination().connect(reverb);
 
+const sampler2 = new Tone.Sampler({
+    urls: {
+        A3:"A4.wav",
+        A4:"A5.wav",
+        A5:"A6.wav",
+        B3:"B4.wav",
+        B4:"B5.wav",
+        B5:"B6.wav",
+        C3:"C4.wav",
+        C4:"C5.wav",
+        C5:"C6.wav",
+        D3:"D4.wav",
+        D4:"D5.wav",
+        D5:"D6.wav",
+        E3:"E4.wav",
+        E4:"E5.wav",
+        E5:"E6.wav",
+        F3:"F4.wav",
+        F4:"F5.wav",
+        F5:"F6.wav",
+        G3:"G4.wav",
+        G4:"G5.wav",
+        G5:"G6.wav"
+    },
+    volume: -16,
+    release: 10,
+    baseUrl: "samples/lyre/"
+}).toDestination().connect(reverb);
+
+samplers["lyre"] = sampler2;
+samplers["harp"] = sampler;
+
 /*
 Method:
 args: None
@@ -226,7 +260,7 @@ document.body.addEventListener("keydown", e => {
     if(!isReady) return;
     if(e.repeat) return;
     if(!"azertyuqsdfghjwxcvbn,?".includes(e.key.toLowerCase())) return; 
-    sampler.triggerAttackRelease(NOTES[KEYS.indexOf(e.key.toLowerCase())], "8n");
+    samplers[instrument].triggerAttackRelease(NOTES[KEYS.indexOf(e.key.toLowerCase())], "8n");
     if(isRecording){
         if(recorded.length == 0) recorded +=  (Date.now() - now).toString();
         else recorded += "@" + (Date.now() - now).toString();
@@ -239,7 +273,7 @@ document.body.addEventListener("keydown", e => {
 document.querySelectorAll(".note").forEach(el => {
     el.addEventListener("click", (e) => {
         if(!isReady) return;
-        sampler.triggerAttackRelease(el.dataset.note, "8n");
+        samplers[instrument].triggerAttackRelease(el.dataset.note, "8n");
         if(isRecording){
             if(recorded.length == 0) recorded +=  (Date.now() - now).toString();
             else recorded += "@" + (Date.now() - now).toString();
@@ -315,4 +349,22 @@ copy.addEventListener("click", () => {
     setTimeout(() => {
         if(error.textContent == "Copied!") error.textContent = "";
     }, 2000)
+});
+
+//Event listening to Lyre click
+lyre.addEventListener("click", () => {
+    if(instrument == "harp"){
+        instrument = "lyre";
+        lyre.classList.add("selected");
+        harp.classList.remove("selected");
+    }
+});
+
+//Event listening to Harp click
+harp.addEventListener("click", () => {
+    if(instrument == "lyre"){
+        instrument = "harp";
+        harp.classList.add("selected");
+        lyre.classList.remove("selected");
+    }
 });

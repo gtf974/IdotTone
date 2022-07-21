@@ -17,7 +17,7 @@ h1{
     position: absolute;
     margin: 0 auto;
     top: 10px;
-    left: 10px
+    left: 10px;
 }
 
 /*Main App*/
@@ -115,10 +115,10 @@ h1{
 
 /*Footer*/
 #footer{
-    width: 100%;
     position: absolute;
-    text-align: center;
-    bottom: 10px;
+    left: 50%;
+    top: 100vh;
+    transform: translate(-50%,-100%);
     z-index: 1;
 }
 
@@ -152,10 +152,22 @@ h1{
     justify-content: center;
     align-items: center;
     position: absolute;
-    flex-direction: column;
+    flex-direction: row;
     left: 50%;
     top: 20px;
     transform: translateX(-50%);
+}
+
+#instruments{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    position: absolute;
+    margin-bottom: 20px;
+    top: 100vh;
+    left: 10px;
+    transform: translateY(-130%);
 }
 
 #buttons{
@@ -196,6 +208,10 @@ h1{
 
 #error{
     margin-top: 10px;
+}
+
+.selected{
+    background-color: rgb(172, 172, 172);
 }
 
 /*Animations*/
