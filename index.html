@@ -15,7 +15,7 @@
     <!--Main APP-->
     <div id="app">
         <!--Top left Title-->
-        <h1>IdotTone</h1>
+        <h1 id="title">IdotTone</h1>
         <!--Record buttons-->
         <div id="record-buttons">
             <div id="buttons">
@@ -28,6 +28,12 @@
                 </div>
                 <div class="button" id="copy">
                     Copy
+                </div>
+                <div class="button selected" id="lyre">
+                    Lyre
+                </div>
+                <div class="button" id="harp">
+                    Harp
                 </div>
             </div>
             <div id="error">
@@ -109,15 +115,25 @@
                 </div>
             </div>
         </div>
-        <!--Instrument selection-->
-        <div id="instruments">
-            <div class="button selected" id="lyre">
-                Lyre
-            </div>
-            <div class="button" id="harp">
-                Harp
+        <div id="help">
+            <div id="back">
+                <div id="helper">
+                    <h2>Hello!</h2>
+                    Welcome to Idottone, a simple music pad made with ToneJs.
+                    <h4>Usage</h4>
+                    You can either use your AZERTY keyboard or click on the notes.<br>
+                    Please note that you need to switch to an AZERTY keyboard to play.
+                    <h4>Record/Play/Copy</h4>
+                    <strong>Record</strong> permits you to record <strong>10 seconds</strong> of your following sequence of playing.<br>
+                    <strong>Play</strong> permits you to replay what others sent to you or your own record.<br>
+                    <strong>Copy</strong> copies a link that stores your last record. That way, you can share it to your friends!<br>
+                    <h4>Lyre/Harp</h4>
+                    <strong>Lyre</strong> switches to the Genshin Impact Windsong Lyre (Thanks to <a href="https://www.reddit.com/user/p_izzadad"><strong>p_izzadad</strong></a> on Reddit for the sample library! ♥)<br>
+                    <strong>Harp</strong> switches to a harp from samples of <a href="https://github.com/nbrosowsky/tonejs-instruments/">this repo</a> on Github.
+                </div>
             </div>
         </div>
+        <div id="helpButton" class="button">Help</div>
     </div>
     <!--Footer-->
     <div id="footer">Made with ♥ by Idotcom</div>

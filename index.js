@@ -90,7 +90,7 @@ Tone.context.lookAhead = 0;
 // Reverb module
 const reverb = new Tone.Reverb(10).toDestination();
 
-//Sampling the Harp samples, turning down the volume and connecting the reverb to the output
+//Sampling the Harp and Lyre samples
 const sampler = new Tone.Sampler({
     urls: {
         A2: "A2.wav",
@@ -250,11 +250,11 @@ const animRecord = (bool) => {
 };
 
 
-/*Main*/
+//----------------------------------MAIN---------------------------------
 loadPage();
 getUrlParams();
 
-
+//---------------------------------EVENTS--------------------------------
 //Event listening to keypressing
 document.body.addEventListener("keydown", e => {
     if(!isReady) return;
@@ -367,4 +367,22 @@ harp.addEventListener("click", () => {
         harp.classList.add("selected");
         lyre.classList.remove("selected");
     }
+});
+
+//Event listening to Help click
+helpButton.addEventListener("click", () => {
+    if(help.style.opacity == 0){
+        help.style.display = "block";
+        setTimeout(() => {
+            help.style.opacity = 1;
+        }, 20);
+    }
+});
+
+//Event listening to Help click
+back.addEventListener("click", () => {
+        help.style.opacity = 0;
+        setTimeout(() => {
+            help.style.display = "none";
+        }, 500);
 });

@@ -147,6 +147,7 @@ h1{
     animation: 2s blink infinite;
 }
 
+/*SETTING BUTTONS*/
 #record-buttons{
     display: flex;
     justify-content: center;
@@ -158,37 +159,14 @@ h1{
     transform: translateX(-50%);
 }
 
-#instruments{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    position: absolute;
-    margin-bottom: 20px;
-    top: 100vh;
-    left: 10px;
-    transform: translateY(-130%);
-}
-
+/*Buttons flexbox*/
 #buttons{
     display: flex;
     justify-content: center;
     flex-direction: row;
 }
 
-#record{
-    display:flex;
-    align-items: center;
-}
-
-#dot{
-    border-radius: 100%;
-    width: 10px;
-    height: 10px;
-    background-color: rgba(255, 75, 75, 0.2);
-    margin-right: 5px;
-}
-
+/*Buttons*/
 .button{
     border: 1px solid rgb(39, 39, 39);
     border-radius: 20%;
@@ -202,16 +180,75 @@ h1{
     cursor: pointer;
 }
 
+/*Record button*/
+#record{
+    display:flex;
+    align-items: center;
+}
+
+/*Record led*/
+#dot{
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 75, 75, 0.2);
+    margin-right: 5px;
+}
+
 .led-blink{
     animation: ledBlink 2s infinite;
 }
 
+/*Helper message*/
 #error{
     margin-top: 10px;
 }
 
+/*Darken the background of buttons if selected*/
 .selected{
     background-color: rgb(172, 172, 172);
+}
+
+/*Help overlay*/
+#help{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: none;
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+/*Background of the helper*/
+#back{
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 11;
+}
+
+/*The actuel helper box*/
+#helper{
+    background-color: white;
+    padding: 50px;
+    width: auto;
+    z-index: 12;
+}
+
+/*Help button*/
+#helpButton{
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
 }
 
 /*Animations*/
