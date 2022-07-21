@@ -86,7 +86,7 @@ const anim = (key) => {
 Tone.context.lookAhead = 0;
 
 // Reverb module
-const reverb = new Tone.Reverb(5).toDestination();
+const reverb = new Tone.Reverb(10).toDestination();
 
 //Sampling the Harp samples, turning down the volume and connecting the reverb to the output
 const sampler = new Tone.Sampler({
@@ -115,7 +115,7 @@ const sampler = new Tone.Sampler({
         G3: "G3.wav",
         G5: "G5.wav",
     },
-    release: 1,
+    release: 10,
     baseUrl: "samples/harp/",
     volume: -15,
 }).toDestination().connect(reverb);
