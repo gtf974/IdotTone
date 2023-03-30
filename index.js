@@ -118,7 +118,7 @@ const sampler = new Tone.Sampler({
         G3: "G3.wav",
         G5: "G5.wav",
     },
-    release: 10,
+    release: 1,
     baseUrl: "samples/harp/",
     volume: -15,
 }).toDestination();
@@ -150,7 +150,6 @@ const sampler2 = new Tone.Sampler({
     },
     volume: -10,
     release: 1,
-    sampleTime: 4,
     baseUrl: "samples/lyrev2/"
 }).toDestination();
 //.connect(reverb);
@@ -262,8 +261,9 @@ getUrlParams();
 document.body.addEventListener("keydown", e => {
     if(!isReady) return;
     if(e.repeat) return;
-    if(!"azertyuqsdfghjwxcvbn,?".includes(e.key.toLowerCase())) return; 
-    samplers[instrument].triggerAttackRelease(NOTES[KEYS.indexOf(e.key.toLowerCase())], "8n");
+    if(!"azertyuqsdfghjwxcvbn,?".includes(e.key.toLowerCase())) return;
+    if(instrument == "lyre") samplers[instrument].triggerAttackRelease(NOTES[KEYS.indexOf(e.key.toLowerCase())], 4);
+    else samplers[instrument].triggerAttackRelease(NOTES[KEYS.indexOf(e.key.toLowerCase())], "8n");
     if(isRecording){
         if(recorded.length == 0) recorded +=  (Date.now() - now).toString();
         else recorded += "@" + (Date.now() - now).toString();
@@ -276,7 +276,8 @@ document.body.addEventListener("keydown", e => {
 document.querySelectorAll(".note").forEach(el => {
     el.addEventListener("click", (e) => {
         if(!isReady) return;
-        samplers[instrument].triggerAttackRelease(el.dataset.note, "8n");
+        if(instrument == "lyre") samplers[instrument].triggerAttackRelease(el.dataset.note, 4);
+        else samplers[instrument].triggerAttackRelease(el.dataset.note, "8n");
         if(isRecording){
             if(recorded.length == 0) recorded +=  (Date.now() - now).toString();
             else recorded += "@" + (Date.now() - now).toString();
