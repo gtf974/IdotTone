@@ -148,7 +148,7 @@ const sampler2 = new Tone.Sampler({
         G4:"G5.mp3",
         G5:"G6.mp3"
     },
-    volume: -5,
+    volume: -3,
     release: 1,
     baseUrl: "samples/lyrev2/"
 }).toDestination();
