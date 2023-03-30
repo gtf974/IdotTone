@@ -126,31 +126,31 @@ const sampler = new Tone.Sampler({
 
 const sampler2 = new Tone.Sampler({
     urls: {
-        A3:"A4.wav",
-        A4:"A5.wav",
-        A5:"A6.wav",
-        B3:"B4.wav",
-        B4:"B5.wav",
-        B5:"B6.wav",
-        C3:"C4.wav",
-        C4:"C5.wav",
-        C5:"C6.wav",
-        D3:"D4.wav",
-        D4:"D5.wav",
-        D5:"D6.wav",
-        E3:"E4.wav",
-        E4:"E5.wav",
-        E5:"E6.wav",
-        F3:"F4.wav",
-        F4:"F5.wav",
-        F5:"F6.wav",
-        G3:"G4.wav",
-        G4:"G5.wav",
-        G5:"G6.wav"
+        A3:"A4.mp3",
+        A4:"A5.mp3",
+        A5:"A6.mp3",
+        B3:"B4.mp3",
+        B4:"B5.mp3",
+        B5:"B6.mp3",
+        C3:"C4.mp3",
+        C4:"C5.mp3",
+        C5:"C6.mp3",
+        D3:"D4.mp3",
+        D4:"D5.mp3",
+        D5:"D6.mp3",
+        E3:"E4.mp3",
+        E4:"E5.mp3",
+        E5:"E6.mp3",
+        F3:"F4.mp3",
+        F4:"F5.mp3",
+        F5:"F6.mp3",
+        G3:"G4.mp3",
+        G4:"G5.mp3",
+        G5:"G6.mp3"
     },
     volume: -16,
     release: 10,
-    baseUrl: "samples/lyre/"
+    baseUrl: "samples/lyrev2/"
 }).toDestination();
 //.connect(reverb);
 
