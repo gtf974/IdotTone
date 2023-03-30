@@ -149,7 +149,7 @@ const sampler2 = new Tone.Sampler({
         G5:"G6.mp3"
     },
     volume: -13,
-    release: 20,
+    sampleTime: 4,
     baseUrl: "samples/lyrev2/"
 }).toDestination();
 //.connect(reverb);
