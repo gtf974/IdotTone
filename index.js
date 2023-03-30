@@ -89,7 +89,7 @@ const anim = (key) => {
 Tone.context.lookAhead = 0;
 
 // Reverb module
-const reverb = new Tone.Reverb(10).toDestination();
+// const reverb = new Tone.Reverb(10).toDestination();
 
 //Sampling the Harp and Lyre samples
 const sampler = new Tone.Sampler({
@@ -121,7 +121,8 @@ const sampler = new Tone.Sampler({
     release: 10,
     baseUrl: "samples/harp/",
     volume: -15,
-}).toDestination().connect(reverb);
+}).toDestination();
+//.connect(reverb);
 
 const sampler2 = new Tone.Sampler({
     urls: {
@@ -150,7 +151,8 @@ const sampler2 = new Tone.Sampler({
     volume: -16,
     release: 10,
     baseUrl: "samples/lyre/"
-}).toDestination().connect(reverb);
+}).toDestination();
+//.connect(reverb);
 
 samplers["lyre"] = sampler2;
 samplers["harp"] = sampler;
