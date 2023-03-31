@@ -272,7 +272,6 @@ getUrlParams();
 //Event listening to keypressing
 document.body.addEventListener("keydown", e => {
     if(e.repeat) return;
-    console.log(!"azertyuqsdfghjwxcvbn,?".includes(e.key.toLowerCase()));
     switch(currentKeyboardLayout){
         case "azerty":
             if(!"azertyuqsdfghjwxcvbn,?".includes(e.key.toLowerCase())) return;
@@ -284,7 +283,6 @@ document.body.addEventListener("keydown", e => {
             if(!"azertyuqsdfghjwxcvbnm".includes(e.key.toLowerCase())) return;
             break;
     }
-    console.log("yes");
     playNote(NOTES[KEYS.indexOf(e.key.toLowerCase())]);
     animNote(e.key.toLowerCase());
 });
