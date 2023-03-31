@@ -22,9 +22,9 @@ const QWERTYKEYS = [
 ]
 
 const QWERTZKEYS = [
-    "q", "w", "e", "r", "t", "y", "u",
+    "q", "w", "e", "r", "t", "z", "u",
     "a", "s", "d", "f", "g", "h", "j",
-    "z", "x", "c", "v", "b", "n", "m"
+    "y", "x", "c", "v", "b", "n", "m"
 ]
 
 //Azerty layout by default
@@ -272,14 +272,19 @@ getUrlParams();
 //Event listening to keypressing
 document.body.addEventListener("keydown", e => {
     if(e.repeat) return;
+    console.log(!"azertyuqsdfghjwxcvbn,?".includes(e.key.toLowerCase()));
     switch(currentKeyboardLayout){
         case "azerty":
             if(!"azertyuqsdfghjwxcvbn,?".includes(e.key.toLowerCase())) return;
+            break;
         case "qwerty":
             if(!"azertyuqsdfghjwxcvbnm".includes(e.key.toLowerCase())) return;
+            break;
         case "qwertz":
             if(!"azertyuqsdfghjwxcvbnm".includes(e.key.toLowerCase())) return;
+            break;
     }
+    console.log("yes");
     playNote(NOTES[KEYS.indexOf(e.key.toLowerCase())]);
     animNote(e.key.toLowerCase());
 });
