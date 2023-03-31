@@ -91,10 +91,10 @@ const animNote = (key) => {
     echo.classList.add("echo");
     if(KEYS.indexOf(key) == 21) echo.classList.add("border-purple");
     else echo.classList.add("border-"+COLORS[KEYS.indexOf(key) % 7]);
+    app.appendChild(echo);
     const pos = getOffset(element);
     echo.style.top = pos.top+"px";
     echo.style.left = pos.left+"px";
-    app.appendChild(echo);
     element.style.width = "10vh";
     element.style.height = "10vh";
     element.style.transform = "scale(90%)";

@@ -120,6 +120,10 @@ h2, h4, strong, a{
     z-index: 2;
 }
 
+.note:hover{
+    cursor: pointer;
+}
+
 /*Echos spawning when a note is played*/
 .echo{
     position: absolute;
@@ -328,8 +332,12 @@ h2, h4, strong, a{
 }
 
 @keyframes loadingBar {
-    from {width: 0%;}
-    to {width: 100%;}
+    16%{width: 0%; background-color: #d12222;}
+    32%{background-color: #ff9e4c;}
+    48%{background-color: #ffd600;}
+    64%{background-color: #ff2f8e;}
+    80%{background-color: #6a77dd;}
+    100%{width: 100%; background-color: #66df48;}
 }
 
 @keyframes loadingTitle {
@@ -352,4 +360,4 @@ h2, h4, strong, a{
     20%, 80% {transform: rotate(-20deg);}
     30%, 50%, 70% {transform: rotate(20deg);}
     40%, 60% {transform: rotate(-20deg);}
-  }
+}
