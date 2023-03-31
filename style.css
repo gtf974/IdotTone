@@ -165,6 +165,7 @@ h2, h4, strong, a{
 
 #loading-title{
     color:rgb(207, 202, 202);
+    animation: loadingTitle forwards ease-in-out 3s;
     font-size: 80px;
 }
 
@@ -305,4 +306,10 @@ h2, h4, strong, a{
 @keyframes loadingBar {
     from {width: 0%;}
     to {width: 100%;}
+}
+
+@keyframes loadingTitle {
+    0% {width: 0%; opacity: 0;}
+    50% {width: 0%; opacity: 0;}
+    100% {width: 100%; opacity: 1;}
 }
