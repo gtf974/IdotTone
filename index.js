@@ -6,6 +6,7 @@ let isRecording = false;
 let isPlaying = false;
 let isFirstLoad = true;
 let now = null;
+let isDisplayingError = false;
 let currentKeyboardLayout = "azerty";
 
 //Keys you press
@@ -298,24 +299,18 @@ document.querySelectorAll(".note").forEach(el => {
 //Event listening to Play click
 play.addEventListener("click", () => {
     if(isRecording){
-        error.textContent = "It's recording...";
-        setTimeout(() => {
-            if(error.textContent == "It's recording...") error.textContent = "";
-        }, 2000)
+        play.classList.add("error-color");
+        setTimeout(() => play.classList.remove("error-color"), 500);
         return;
     }
     if(recorded == ""){
-        error.textContent = "Nothing to play...";
-        setTimeout(() => {
-            if(error.textContent == "Nothing to play...") error.textContent = "";
-        }, 2000)
+        play.classList.add("error-color");
+        setTimeout(() => play.classList.remove("error-color"), 800);
         return;
     }
     if(isPlaying){
-        error.textContent = "It's currently playing...";
-        setTimeout(() => {
-            if(error.textContent == "It's currently playing...") error.textContent = "";
-        }, 2000)
+        play.classList.add("error-color");
+        setTimeout(() => play.classList.remove("error-color"), 800);
         return;
     }
     parseUrl();
@@ -326,12 +321,13 @@ play.addEventListener("click", () => {
 record.addEventListener("click", () => {
     if(isRecording){
         isRecording = false;
-        recordText.textContent = "Record"
+        recordText.textContent = "Record";
         animRecord(false);
         return;
     }
     if(isPlaying){
-        error.textContent = "Wait for the music to end before recording..";
+        record.classList.add("error-color");
+        setTimeout(() => record.classList.remove("error-color"), 800);
         return;
     }
     recorded = "";
@@ -357,10 +353,16 @@ copy.addEventListener("click", () => {
         animRecord(false);
    }
     navigator.clipboard.writeText("https://idottone.netlify.app/?r="+recorded);
-    error.textContent = "Copied!";
-    setTimeout(() => {
-        if(error.textContent == "Copied!") error.textContent = "";
-    }, 2000)
+    error.textContent = "Copied📋";
+    if(!isDisplayingError){
+        error.classList.add("shine");
+        isDisplayingError = true;
+        setTimeout(() => {
+            error.textContent = "";
+            error.classList.remove("shine");
+            isDisplayingError = false;
+        }, 3000)
+    }
 });
 
 //Event listening to Azerty click

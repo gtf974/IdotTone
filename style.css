@@ -234,7 +234,14 @@ h2, h4, strong, a{
 /*Helper message*/
 #error{
     margin-top: 10px;
-    color: whitesmoke;
+    font-size: 25px;
+    color: rgb(207, 202, 202);
+}
+
+.error-color{
+    background-color: #ff3333 !important;
+    color: whitesmoke !important;
+    animation: shake forwards ease-in-out 0.8s;
 }
 
 /*Enbrighten the background of buttons if selected*/
@@ -292,8 +299,14 @@ h2, h4, strong, a{
     bottom: 10px;
 }
 
+/*Keyboard layouts buttons*/
 #qwerty, #qwertz{
     margin-top: 5px;
+}
+
+/*Shine class*/
+.shine{
+    animation: shine forwards ease-in-out 3s;
 }
 
 /*Animations*/
@@ -324,3 +337,19 @@ h2, h4, strong, a{
     50% {width: 0%; opacity: 0;}
     100% {width: 100%; opacity: 1;}
 }
+
+@keyframes shine {
+    0% {opacity: 0; transform: translateY(-20px);}
+    15% {opacity: 1; transform: translateY(5px);}
+    20% {opacity: 1; transform: translateY(-2px);}
+    30% {opacity: 1; transform: translateY(0);}
+    85% {opacity: 1; transform: translateY(0);}
+    100% {opacity: 0;transform: translateY(0);}
+}
+
+@keyframes shake {
+    10%, 90% {transform: rotate(20deg);}
+    20%, 80% {transform: rotate(-20deg);}
+    30%, 50%, 70% {transform: rotate(20deg);}
+    40%, 60% {transform: rotate(-20deg);}
+  }
