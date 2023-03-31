@@ -262,8 +262,7 @@ document.body.addEventListener("keydown", e => {
     if(!isReady) return;
     if(e.repeat) return;
     if(!"azertyuqsdfghjwxcvbn,?".includes(e.key.toLowerCase())) return;
-    if(instrument == "lyre") samplers[instrument].triggerAttackRelease(NOTES[KEYS.indexOf(e.key.toLowerCase())], 4);
-    else samplers[instrument].triggerAttackRelease(NOTES[KEYS.indexOf(e.key.toLowerCase())], "8n");
+    samplers[instrument].triggerAttackRelease(NOTES[KEYS.indexOf(e.key.toLowerCase())], 4);
     if(isRecording){
         if(recorded.length == 0) recorded +=  (Date.now() - now).toString();
         else recorded += "@" + (Date.now() - now).toString();
