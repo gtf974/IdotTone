@@ -64,7 +64,7 @@ const getOffset = (el) => {
   return : None
   def : Animates when the user presses a key or clicks a circle
   */
-const anim = (key) => {
+const animNote = (key) => {
     let element = document.getElementById(NOTES[KEYS.indexOf(key)]);
     const echo = document.createElement('div');
     echo.classList.add("echo");
@@ -259,32 +259,30 @@ getUrlParams();
 //---------------------------------EVENTS--------------------------------
 //Event listening to keypressing
 document.body.addEventListener("keydown", e => {
-    if(!isReady) return;
     if(e.repeat) return;
     if(!"azertyuqsdfghjwxcvbn,?".includes(e.key.toLowerCase())) return;
-    samplers[instrument].triggerAttackRelease(NOTES[KEYS.indexOf(e.key.toLowerCase())], 4);
-    if(isRecording){
-        if(recorded.length == 0) recorded +=  (Date.now() - now).toString();
-        else recorded += "@" + (Date.now() - now).toString();
-        recorded += "@" + NOTES[KEYS.indexOf(e.key.toLowerCase())];
-    }
-    anim(e.key.toLowerCase());
+    playNote(NOTES[KEYS.indexOf(e.key.toLowerCase())]);
+    animNote(e.key.toLowerCase());
 });
 
 //Event listening to clicks
 document.querySelectorAll(".note").forEach(el => {
     el.addEventListener("click", (e) => {
-        if(!isReady) return;
-        if(instrument == "lyre") samplers[instrument].triggerAttackRelease(el.dataset.note, 4);
-        else samplers[instrument].triggerAttackRelease(el.dataset.note, "8n");
-        if(isRecording){
-            if(recorded.length == 0) recorded +=  (Date.now() - now).toString();
-            else recorded += "@" + (Date.now() - now).toString();
-            recorded += "@" + el.dataset.note;
-        }
-        anim(KEYS[NOTES.indexOf(el.dataset.note)]);
+        playNote(el.dataset.note);
+        animNote(KEYS[NOTES.indexOf(el.dataset.note)]);
     });
 });
+
+//Playing note
+const playNote = (note) => {
+    if(!isReady) return;
+    samplers[instrument].triggerAttackRelease(note, 4);
+    if(isRecording){
+        if(recorded.length == 0) recorded +=  (Date.now() - now).toString();
+        else recorded += "@" + (Date.now() - now).toString();
+        recorded += "@" + note;
+    }
+}
 
 //Event listening to Play click
 play.addEventListener("click", () => {
