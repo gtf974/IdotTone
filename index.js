@@ -264,10 +264,29 @@ const playNote = (note) => {
     }
 }
 
+/*
+Method:
+args: None
+return : None
+def : Stop the recording
+*/
+const stopRecording = () => {
+    isRecording = false;
+    recordText.textContent = "Record";
+    animRecord(false);
+}
+
 
 //----------------------------------MAIN---------------------------------
 loadPage();
 getUrlParams();
+
+/*Loop that check recordings length*/
+setInterval(() => {
+    if(isRecording){
+        if(Date.now() - now >= 10000) stopRecording();
+    }
+}, 1000);
 
 //---------------------------------EVENTS--------------------------------
 //Event listening to keypressing
@@ -320,9 +339,7 @@ play.addEventListener("click", () => {
 //Event listening to Record click
 record.addEventListener("click", () => {
     if(isRecording){
-        isRecording = false;
-        recordText.textContent = "Record";
-        animRecord(false);
+        stopRecording();
         return;
     }
     if(isPlaying){
@@ -334,15 +351,7 @@ record.addEventListener("click", () => {
     now = Date.now();
     recordText.textContent = "Stop"
     isRecording = true;
-    animRecord(true);
-    setTimeout(() => {
-        if(isRecording){
-            isRecording = false;
-            recordText.textContent = "Record";
-            animRecord(false);
-        }
-    }, 10000);
-    
+    animRecord(true);    
 });
 
 //Event listening to Copy click
