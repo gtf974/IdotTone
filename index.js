@@ -229,11 +229,9 @@ def : Loads everything
 const loadPage = () => {
     const loading = document.getElementById("loading-box");
     const loadingTitle = document.getElementById("loading-title");
-    loadingTitle.classList.add("loading-title-blink");
     setTimeout(() => {
         isReady = true;
         loading.style.opacity = 0;
-        loadingTitle.classList.remove("loading-title-blink");
         setTimeout(() => {
         loading.remove();
         }, 1000);
