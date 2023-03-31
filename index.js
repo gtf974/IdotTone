@@ -65,20 +65,6 @@ let getUrlParams = () => {
     if(param) recorded = param;
 };
 
-/*
-Method:
-args : DOM element
-return : Object carrying the absolute positions of a DOM element
-*/
-const getOffset = (el) => {
-    const rect = el.getBoundingClientRect();
-    const bodyRect = document.body.getBoundingClientRect();
-    return {
-        left: rect.left - bodyRect.left,
-        top: rect.top - bodyRect.top
-    };
-  }
-
   /*
   Method:
   args: Key as formatted in KEYS
@@ -86,20 +72,20 @@ const getOffset = (el) => {
   def : Animates when the user presses a key or clicks a circle
   */
 const animNote = (key) => {
-    let element = document.getElementById(NOTES[KEYS.indexOf(key)]);
+    const noteBox = document.getElementById(NOTES[KEYS.indexOf(key)]+"-box");
+    const note = document.getElementById(NOTES[KEYS.indexOf(key)]);
+    note.style.transform = "scale(90%)";
     const echo = document.createElement('div');
-    echo.classList.add("echo");
+    echo.style.top = noteBox.getBoundingClientRect().top+"px";
+    echo.style.left = noteBox.getBoundingClientRect().left+"px";
     if(KEYS.indexOf(key) == 21) echo.classList.add("border-purple");
     else echo.classList.add("border-"+COLORS[KEYS.indexOf(key) % 7]);
     app.appendChild(echo);
-    const pos = getOffset(element);
-    echo.style.top = pos.top+"px";
-    echo.style.left = pos.left+"px";
-    element.style.width = "10vh";
-    element.style.height = "10vh";
-    element.style.transform = "scale(90%)";
+    echo.classList.add("echo");
+    note.style.width = "10vh";
+    note.style.height = "10vh";
     setTimeout(() => {
-        element.style.transform = "";
+        note.style.transform = "";
     }, 120)
     setTimeout(() => {
         echo.remove();

@@ -107,10 +107,10 @@ h2, h4, strong, a{
 /*Note circle*/
 .note{
     font-family: PoppinsBlack;
-    margin: 5px 15px 5px 15px;
-    width: 10vh;
-    height: 10vh;
+    width: 100%;
+    height: 100%;
     border-radius: 1000px;
+    position:relative;
     font-size: 30px;
     color: white;
     display: flex;
@@ -122,6 +122,12 @@ h2, h4, strong, a{
 
 .note:hover{
     cursor: pointer;
+}
+
+.note-box{
+    width: 10vh;
+    height: 10vh;
+    margin: 5px 15px 5px 15px;
 }
 
 /*Echos spawning when a note is played*/
