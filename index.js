@@ -6,15 +6,35 @@ let isRecording = false;
 let isPlaying = false;
 let isFirstLoad = true;
 let now = null;
-let samplers = {};
-let instrument = "lyre";
+let currentKeyboardLayout = "azerty";
 
 //Keys you press
-const KEYS = [
+const AZERTYKEYS = [
     "a", "z", "e", "r", "t", "y", "u",
     "q", "s", "d", "f", "g", "h", "j",
     "w", "x", "c", "v", "b", "n", ",", "?"
 ]
+
+const QWERTYKEYS = [
+    "q", "w", "e", "r", "t", "y", "u",
+    "a", "s", "d", "f", "g", "h", "j",
+    "z", "x", "c", "v", "b", "n", "m"
+]
+
+const QWERTZKEYS = [
+    "q", "w", "e", "r", "t", "y", "u",
+    "a", "s", "d", "f", "g", "h", "j",
+    "z", "x", "c", "v", "b", "n", "m"
+]
+
+//Azerty layout by default
+let KEYS = [
+    "a", "z", "e", "r", "t", "y", "u",
+    "q", "s", "d", "f", "g", "h", "j",
+    "w", "x", "c", "v", "b", "n", ",", "?"
+]
+
+
 
 //Notes corresponding to the keys you press
 const NOTES = [
@@ -91,40 +111,7 @@ Tone.context.lookAhead = 0;
 // Reverb module
 // const reverb = new Tone.Reverb(10).toDestination();
 
-//Sampling the Harp and Lyre samples
 const sampler = new Tone.Sampler({
-    urls: {
-        A2: "A2.wav",
-        A4: "A4.wav",
-        A6: "A6.wav",
-        B1: "B1.wav",
-        B3: "B3.wav",
-        B5: "B5.wav",
-        B6: "B6.wav",
-        C3: "C3.wav",
-        C5: "C5.wav",
-        D2: "D2.wav",
-        D4: "D4.wav",
-        D6: "D6.wav",
-        D7: "D7.wav",
-        E1: "E1.wav",
-        E3: "E3.wav",
-        E5: "E5.wav",
-        F2: "F2.wav",
-        F4: "F4.wav",
-        F6: "F6.wav",
-        F7: "F7.wav",
-        G1: "G1.wav",
-        G3: "G3.wav",
-        G5: "G5.wav",
-    },
-    release: 1,
-    baseUrl: "samples/harp/",
-    volume: -5,
-}).toDestination();
-//.connect(reverb);
-
-const sampler2 = new Tone.Sampler({
     urls: {
         A3:"A4.mp3",
         A4:"A5.mp3",
@@ -153,9 +140,6 @@ const sampler2 = new Tone.Sampler({
     baseUrl: "samples/lyrev2/"
 }).toDestination();
 //.connect(reverb);
-
-samplers["lyre"] = sampler2;
-samplers["harp"] = sampler;
 
 /*
 Method:
@@ -228,7 +212,6 @@ def : Loads everything
 */
 const loadPage = () => {
     const loading = document.getElementById("loading-box");
-    const loadingTitle = document.getElementById("loading-title");
     setTimeout(() => {
         isReady = true;
         loading.style.opacity = 0;
@@ -249,6 +232,37 @@ const animRecord = (bool) => {
     else dot.classList.remove("led-blink");
 };
 
+/*
+Method:
+args: index -> int
+return : None
+def : Change the letters according to the current keyboard layout
+*/
+const changeKeyboardLetters = (index) => {
+    changingA.textContent = changingA.dataset.key.split("/")[index];
+    changingZ.textContent = changingZ.dataset.key.split("/")[index];
+    changingY.textContent = changingY.dataset.key.split("/")[index];
+    changingQ.textContent = changingQ.dataset.key.split("/")[index];
+    changingW.textContent = changingW.dataset.key.split("/")[index];
+    changingComma.textContent = changingComma.dataset.key.split("/")[index];
+}
+
+/*
+Method:
+args: index -> string
+return : None
+def : Plays a specific note
+*/
+const playNote = (note) => {
+    if(!isReady) return;
+    sampler.triggerAttackRelease(note, 4);
+    if(isRecording){
+        if(recorded.length == 0) recorded +=  (Date.now() - now).toString();
+        else recorded += "@" + (Date.now() - now).toString();
+        recorded += "@" + note;
+    }
+}
+
 
 //----------------------------------MAIN---------------------------------
 loadPage();
@@ -258,7 +272,14 @@ getUrlParams();
 //Event listening to keypressing
 document.body.addEventListener("keydown", e => {
     if(e.repeat) return;
-    if(!"azertyuqsdfghjwxcvbn,?".includes(e.key.toLowerCase())) return;
+    switch(currentKeyboardLayout){
+        case "azerty":
+            if(!"azertyuqsdfghjwxcvbn,?".includes(e.key.toLowerCase())) return;
+        case "qwerty":
+            if(!"azertyuqsdfghjwxcvbnm".includes(e.key.toLowerCase())) return;
+        case "qwertz":
+            if(!"azertyuqsdfghjwxcvbnm".includes(e.key.toLowerCase())) return;
+    }
     playNote(NOTES[KEYS.indexOf(e.key.toLowerCase())]);
     animNote(e.key.toLowerCase());
 });
@@ -270,17 +291,6 @@ document.querySelectorAll(".note").forEach(el => {
         animNote(KEYS[NOTES.indexOf(el.dataset.note)]);
     });
 });
-
-//Playing note
-const playNote = (note) => {
-    if(!isReady) return;
-    samplers[instrument].triggerAttackRelease(note, 4);
-    if(isRecording){
-        if(recorded.length == 0) recorded +=  (Date.now() - now).toString();
-        else recorded += "@" + (Date.now() - now).toString();
-        recorded += "@" + note;
-    }
-}
 
 //Event listening to Play click
 play.addEventListener("click", () => {
@@ -350,21 +360,39 @@ copy.addEventListener("click", () => {
     }, 2000)
 });
 
-//Event listening to Lyre click
-lyre.addEventListener("click", () => {
-    if(instrument == "harp"){
-        instrument = "lyre";
-        lyre.classList.add("selected");
-        harp.classList.remove("selected");
+//Event listening to Azerty click
+azerty.addEventListener("click", () => {
+    if(currentKeyboardLayout != "azerty"){
+        currentKeyboardLayout = "azerty";
+        KEYS = AZERTYKEYS;
+        changeKeyboardLetters(0);
+        azerty.classList.add("selected");
+        qwerty.classList.remove("selected");
+        qwertz.classList.remove("selected");
     }
 });
 
-//Event listening to Harp click
-harp.addEventListener("click", () => {
-    if(instrument == "lyre"){
-        instrument = "harp";
-        harp.classList.add("selected");
-        lyre.classList.remove("selected");
+//Event listening to Qwerty click
+qwerty.addEventListener("click", () => {
+    if(currentKeyboardLayout != "qwerty"){
+        currentKeyboardLayout = "qwerty";
+        KEYS = QWERTYKEYS;
+        changeKeyboardLetters(1);
+        qwerty.classList.add("selected");
+        azerty.classList.remove("selected");
+        qwertz.classList.remove("selected");
+    }
+});
+
+//Event listening to Qwertz click
+qwertz.addEventListener("click", () => {
+    if(currentKeyboardLayout != "qwertz"){
+        currentKeyboardLayout = "qwertz";
+        KEYS = QWERTZKEYS;
+        changeKeyboardLetters(2);
+        qwertz.classList.add("selected");
+        azerty.classList.remove("selected");
+        qwerty.classList.remove("selected");
     }
 });
 

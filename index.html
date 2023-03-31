@@ -34,12 +34,6 @@
                 <div class="button" id="copy">
                     Copy
                 </div>
-                <div class="button selected" id="lyre">
-                    Lyre
-                </div>
-                <div class="button" id="harp">
-                    Harp
-                </div>
             </div>
             <div id="error">
                 
@@ -50,10 +44,10 @@
             <!--First row of notes C5-B5-->
             <div class="row">
                 <div style="position:relative" data-note="C5" class="note red" id="C5">C5
-                    <div style="position:absolute; transform: translateY(100%); font-size: 15px;">A</div>
+                    <div id="changingA" data-key="A/Q/Q" style="position:absolute; transform: translateY(100%); font-size: 15px;">A</div>
                 </div>
                 <div data-note="D5" class="note pink" id="D5">D5
-                    <div style="position:absolute; transform: translateY(100%); font-size: 15px;">Z</div>
+                    <div id="changingZ" data-key="Z/W/W" style="position:absolute; transform: translateY(100%); font-size: 15px;">Z</div>
                 </div>
                 <div data-note="E5" class="note orange" id="E5">E5
                     <div style="position:absolute; transform: translateY(100%); font-size: 15px;">E</div>
@@ -65,7 +59,7 @@
                     <div style="position:absolute; transform: translateY(100%); font-size: 15px;">T</div>
                 </div>
                 <div data-note="A5" class="note blue" id="A5">A5
-                    <div style="position:absolute; transform: translateY(100%); font-size: 15px;">Y</div>
+                    <div id="changingY" data-key="Y/Y/Z" style="position:absolute; transform: translateY(100%); font-size: 15px;">Y</div>
                 </div>
                 <div data-note="B5" class="note purple" id="B5">B5
                     <div style="position:absolute; transform: translateY(100%); font-size: 15px;">U</div>
@@ -74,7 +68,7 @@
             <!--Second row of notes C4-B4-->
             <div class="row">
                 <div data-note="C4" class="note red" id="C4">C4
-                    <div style="position:absolute; transform: translateY(100%); font-size: 15px;">Q</div>
+                    <div id="changingQ" data-key="Q/A/A" style="position:absolute; transform: translateY(100%); font-size: 15px;">Q</div>
                 </div>
                 <div data-note="D4" class="note pink" id="D4">D4
                     <div style="position:absolute; transform: translateY(100%); font-size: 15px;">S</div>
@@ -98,7 +92,7 @@
             <!--Third row of notes C3-B3-->
             <div class="row">
                 <div data-note="C3" class="note red" id="C3">C3
-                    <div style="position:absolute; transform: translateY(100%); font-size: 15px;">W</div>
+                    <div id="changingW" data-key="W/Z/Y" style="position:absolute; transform: translateY(100%); font-size: 15px;">W</div>
                 </div>
                 <div data-note="D3" class="note pink" id="D3">D3
                     <div style="position:absolute; transform: translateY(100%); font-size: 15px;">X</div>
@@ -116,7 +110,7 @@
                     <div style="position:absolute; transform: translateY(100%); font-size: 15px;">N</div>
                 </div>
                 <div data-note="B3" class="note purple" id="B3">B3
-                    <div style="position:absolute; transform: translateY(100%); font-size: 15px;">,</div>
+                    <div id="changingComma" data-key=",/M/M" style="position:absolute; transform: translateY(100%); font-size: 15px;">,</div>
                 </div>
             </div>
         </div>
@@ -132,14 +126,18 @@
                     <strong>Record</strong> permits you to record <strong>10 seconds</strong> of your following sequence of playing.<br>
                     <strong>Play</strong> permits you to replay what others sent to you or your own record.<br>
                     <strong>Copy</strong> copies a link that stores your last record. That way, you can share it to your friends!<br>
-                    <h4>Lyre/Harp</h4>
-                    <strong>Lyre</strong> switches to the Genshin Impact Windsong Lyre (Thanks to <a href="https://www.reddit.com/user/p_izzadad">p_izzadad</a> on Reddit for the sample library! ♥)<br>
-                    I now use another Genshin Impact Windsong Lyre which is more clear (Thanks to <a href="https://github.com/Specy/genshin-music">Specy</a> for the sample library! ♥)<br>
-                    <strong>Harp</strong> switches to a harp from samples of <a href="https://github.com/nbrosowsky/tonejs-instruments/">this repo</a> on Github.
+                    <h4>Special Thanks ♥</h4>
+                    Thanks to <a href="https://www.reddit.com/user/p_izzadad">p_izzadad</a> on Reddit for the legacy sample library!<br>
+                    I now use another Genshin Impact Windsong Lyre sample, thanks to <a href="https://github.com/Specy/genshin-music">Specy</a> for the sample library!<br>
                 </div>
             </div>
         </div>
         <div id="helpButton" class="button">Help</div>
+        <div id="keyboard-selector">
+            <div id="azerty" class="button selected"><center>AZERTY</center></div>
+            <div id="qwerty" class="button"><center>QWERTY</center></div>
+            <div id="qwertz" class="button"><center>QWERTZ</center></div>
+        </div>
     </div>
     <!--Footer-->
     <div id="footer">Made with ♥ by Idotcom</div>

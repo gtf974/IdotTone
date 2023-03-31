@@ -285,6 +285,17 @@ h2, h4, strong, a{
     bottom: 10px;
 }
 
+/*Keyboard Selector*/
+#keyboard-selector{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+#qwerty, #qwertz{
+    margin-top: 5px;
+}
+
 /*Animations*/
 @keyframes echo {
     from {opacity: 1;}
