@@ -49,6 +49,13 @@ const COLORS = [
     "red" , "pink", "orange", "yellow", "green", "blue", "purple"
 ]
 
+//Url key decoder
+const URLKEYS = [
+    "a", "b", "c", "d", "e", "f", "g",
+    "h", "i", "j", "k", "l", "m", "n",
+    "o", "p", "q", "r", "s", "t", "u"
+]
+
 //Test if it's an integer
 const isInteger = (value) => {
     return /^\d+$/.test(value);
@@ -178,13 +185,13 @@ def : Parse the url
 */
 const parseUrl = () => {
     if(recorded.length == 0) return;
-    const split = recorded.split("@");
+    const split = recorded.split("-");
     recordNotes = [];
     recordTime = [];
     for (let index = 0; index < split.length; index++) {
         if(index > 0){
             if(!isInteger(split[index])){
-                recordNotes.push(split[index]);
+                recordNotes.push(NOTES[URLKEYS.indexOf(split[index])]);
                 recordTime.push(Number.parseInt(split[index-1]));
             }
         }
@@ -245,8 +252,8 @@ const playNote = (note) => {
     sampler.triggerAttackRelease(note, 4);
     if(isRecording){
         if(recorded.length == 0) recorded +=  (Date.now() - now).toString();
-        else recorded += "@" + (Date.now() - now).toString();
-        recorded += "@" + note;
+        else recorded += "-" + (Date.now() - now).toString();
+        recorded += "-" + URLKEYS[NOTES.indexOf(note)];
     }
 }
 
