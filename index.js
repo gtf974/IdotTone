@@ -89,8 +89,6 @@ const animNote = (key) => {
     else echo.classList.add("border-"+COLORS[KEYS.indexOf(key) % 7]);
     app.appendChild(echo);
     echo.classList.add("echo");
-    note.style.width = "10vh";
-    note.style.height = "10vh";
     setTimeout(() => {
         note.style.transform = "";
     }, 120)
