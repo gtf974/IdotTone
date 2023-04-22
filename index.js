@@ -275,7 +275,7 @@ getUrlParams();
 /*Loop that check recordings length*/
 setInterval(() => {
     if(isRecording){
-        if(Date.now() - now >= 10000) stopRecording();
+        if(Date.now() - now >= 20000) stopRecording();
     }
 }, 1000);
 
